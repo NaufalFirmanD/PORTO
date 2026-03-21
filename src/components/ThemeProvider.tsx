@@ -1,7 +1,17 @@
 "use client";
-import { createContext, useState, useContext, useEffect, ReactNode } from "react";
+import { createContext, useState, useContext, useEffect, ReactNode, Dispatch, SetStateAction } from "react";
 
-export const ThemeContext = createContext({ theme: "light", setTheme: (_: string) => {} });
+type ThemeContextValue = {
+  theme: string;
+  setTheme: Dispatch<SetStateAction<string>>;
+};
+
+export const ThemeContext = createContext<ThemeContextValue>({
+  theme: "light",
+  setTheme: (value) => {
+    void value;
+  },
+});
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState("light");
