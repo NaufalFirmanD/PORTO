@@ -26,12 +26,12 @@ const projects = [
     repoUrl: "https://github.com/bonnnchannn"
   },
   {
-    title: "Suitmedia Dashboard",
-    category: "Frontend Dev",
-    description: "Aplikasi dashboard performa tinggi dengan pengelolaan API yang kompleks dan visualisasi data.",
-    image: "/suitmedia.png",
-    tags: ["React", "Next.js", "API"],
-    liveUrl: "#",
+    title: "Portal JTV",
+    category: "Web Portal",
+    description: "Platform portal berita dan informasi digital dengan pengalaman baca yang cepat, rapi, dan responsif.",
+    image: "/logo-jtv-rek.png",
+    tags: ["Portal", "News", "Responsive"],
+    liveUrl: "https://portaljtv.com/",
     repoUrl: "https://github.com/bonnnchannn"
   }
 ];
