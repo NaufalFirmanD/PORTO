@@ -1,242 +1,163 @@
-'use client';
-
-import React, { useState } from 'react';
+﻿'use client';
+import React, { useCallback } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowUpRight, ExternalLink, Github, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
-import { ArrowUpRight, Github, ChevronDown, ChevronUp } from 'lucide-react';
-import { motion, Variants, AnimatePresence } from 'framer-motion';
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
 
-// Data untuk proyek (diperluas untuk demonstrasi)
-const projectsData = [
+const projects = [
   {
-    title: 'Aplikasi E-Commerce',
-    description: 'Sebuah platform e-commerce lengkap dengan fitur keranjang belanja, pembayaran, dan panel admin untuk manajemen produk.',
-    image: '/Sapu jagaD.png',
-    tags: ['HTML', 'CSS', 'Javascript', 'PHP'],
-    liveUrl: 'https://sapu.mimorivsl.com/',
-    repoUrl: 'https://github.com/bonnnchannn/sapujagad',
+    title: "Sapu JagaD E-Commerce",
+    category: "Fullstack Web",
+    description: "Platform e-commerce lengkap dengan fitur keranjang belanja, pembayaran modern, dan panel admin.",
+    image: "/sapujagadpreview.png",
+    tags: ["Next.js", "Tailwind", "PHP"],
+    liveUrl: "#",
+    repoUrl: "https://github.com/bonnnchannn"
   },
   {
-    title: 'Recomendation System',
-    description: 'Sebuah aplikasi rekomendasi film yang dibangun menggunakan algoritma machine learning sederhana.',
-    image: '/pythonn.png',
-    tags: ['Python', 'Streamlit'],
-    liveUrl: 'https://opangflix.streamlit.app/',
-    repoUrl: 'https://github.com/bonnnchannn/Recomendation-System',
-  },
-  // Tambahan project untuk demonstrasi fitur "show all"
-  {
-    title: 'Frontend Test API',
-    description: 'Proyek frontend yang mengkonsumsi API untuk menampilkan data dari server, proyek ini untuk memenuhi test magang di suitmedia',
-    image: '/suitmedia.png',
-    tags: ['Tailwind', 'Next.js', 'API'],
-    liveUrl: 'https://suitmedia-test-gold.vercel.app/',
-    repoUrl: 'https://github.com/bonnnchannn/suitmedia-test',
+    title: "OpangFlix AI",
+    category: "AI / Machine Learning",
+    description: "Sistem rekomendasi film cerdas dengan machine learning untuk pengalaman menonton yang personal.",
+    image: "/opangflix.png",
+    tags: ["Python", "Streamlit", "ML"],
+    liveUrl: "https://opangflix.streamlit.app/",
+    repoUrl: "https://github.com/bonnnchannn"
   },
   {
-    title: 'Prototype Dating App',
-    description: 'Prototype aplikasi kencan yang dirancang untuk memberikan pengalaman pengguna yang intuitif dan menarik.',
-    image: '/monamour.png',
-    tags: ['Figma'],
-    liveUrl: 'https://www.figma.com/design/PuaKmurO6hOI7Sj4N4fdhD/mon-amour--Copy-?node-id=1-3&t=oOb6mgSONkLIW9KT-1',
-    repoUrl: 'https://github.com/your-username/task-app',
-  },
-  {
-    title: 'Topologi jaringan menggunakan GNS3',
-    description: 'Merancang dan mengimplementasikan topologi jaringan menggunakan GNS3 untuk simulasi jaringan yang kompleks',
-    image: '/gns3.png',
-    tags: ['GNS3', 'Mikrotik', 'Winbox'],
-    liveUrl: 'https://figma.com/your-mobile-design',
-    repoUrl: 'https://github.com/your-username/mobile-ui',
-  },
-  {
-    title: 'Laundry System App',
-    description: 'Aplikasi sistem laundry yang memudahkan user untuk melakukan order dan membantu admin mengelola pesanan',
-    image: '/java.png',
-    tags: ['Java', 'Java swing',],
-    liveUrl: 'https://github.com/bonnnchannn/Laundry-System',
-    repoUrl: 'https://github.com/bonnnchannn/Laundry-System',
-  },
+    title: "Suitmedia Dashboard",
+    category: "Frontend Dev",
+    description: "Aplikasi dashboard performa tinggi dengan pengelolaan API yang kompleks dan visualisasi data.",
+    image: "/suitmedia.png",
+    tags: ["React", "Next.js", "API"],
+    liveUrl: "#",
+    repoUrl: "https://github.com/bonnnchannn"
+  }
 ];
 
-const sectionFadeIn: Variants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { 
-      duration: 0.8, 
-      ease: 'easeOut'
-    }
-  }
-};
+const ProjectsSection: React.FC = () => {
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true },
+    [Autoplay({ delay: 4000, stopOnInteraction: true })]
+  );
 
-const staggerContainer: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2
-    },
-  },
-};
-
-const itemFadeInUp: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut"
-    }
-  },
-};
-
-const buttonVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut"
-    }
-  },
-};
-
-export default function ProjectsSection() {
-  const [showAllProjects, setShowAllProjects] = useState(false);
-  const initialDisplayCount = 3; // Jumlah project yang ditampilkan pertama kali
-  
-  const displayedProjects = showAllProjects 
-    ? projectsData 
-    : projectsData.slice(0, initialDisplayCount);
-
-  const hasMoreProjects = projectsData.length > initialDisplayCount;
-
-  const toggleShowAll = () => {
-    setShowAllProjects(!showAllProjects);
-  };
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
   return (
-    <motion.section 
-      id="projects" 
-      className="bg-gray-50 py-24 px-4 sm:px-6 lg:px-8 w-full"
-      variants={sectionFadeIn}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-    >
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
-            Proyek Pilihan Saya
-          </h2>
-          <p className="mt-4 text-lg leading-8 text-gray-600 max-w-3xl mx-auto">
-            Berikut adalah beberapa karya yang menunjukkan keahlian saya dalam merancang dan membangun solusi digital.
-          </p>
-        </div>
-        
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-        >
-          <AnimatePresence mode="wait">
-            {displayedProjects.map((project, index) => (
-              <motion.div 
-                key={`${project.title}-${index}`}
-                variants={itemFadeInUp}
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-                layout
-                className="group bg-white rounded-2xl border border-gray-200/80 overflow-hidden transition-all duration-300 hover:shadow-xl"
-                whileHover={{ y: -6 }}
-              >
-                <div className="overflow-hidden h-56">
-                  <Image 
-                    src={project.image}
-                    alt={`Screenshot dari ${project.title}`}
-                    width={400}
-                    height={400}
-                    className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
-                  />
-                </div>
-                
-                <div className="p-6 flex flex-col flex-grow">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-lg font-bold text-gray-900 pr-4">
-                      {project.title}
-                    </h3>
-                    <div className="flex items-center space-x-3 flex-shrink-0">
-                      <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" title="Source Code" className="text-gray-400 hover:text-gray-800 transition-colors">
-                        <Github className="w-5 h-5" />
-                      </a>
-                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" title="Live Demo" className="text-gray-400 hover:text-blue-600 transition-colors">
-                        <ArrowUpRight className="w-5 h-5" />
-                      </a>
-                    </div>
-                  </div>
+    <section id="projects" className="relative z-10 flex flex-col items-center">
+      <div className="absolute top-[20%] right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[140px] -z-10" />
+      <div className="absolute bottom-[20%] left-0 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[140px] -z-10" />
 
-                  <p className="text-gray-600 text-sm flex-grow leading-relaxed mb-5">
-                    {project.description}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-gray-100">
-                    {project.tags.map((tag, tagIndex) => (
-                      <span 
-                        key={tagIndex} 
-                        className="px-3 py-1 text-xs font-medium text-gray-700 bg-gray-100 rounded-full"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
+      <div className="w-full max-w-7xl mx-auto px-6 relative z-10">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col items-center text-center mb-16 gap-6"
+        >
+          <h2 className="text-5xl md:text-8xl font-black tracking-tighter outfit leading-tight text-[#2d2d2d]">
+            Best <span className="text-[#E8895A]">Project.</span>
+          </h2>
+          <p className="text-muted text-base md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
+            Kumpulan proyek terpilih yang menunjukkan kemampuan saya dalam membangun solusi digital yang modern.
+          </p>
+          <a
+            href="https://github.com/bonnnchannn"
+            target="_blank"
+            className="flex items-center gap-3 text-sm font-black uppercase tracking-[0.2em] text-[#2d2d2d]/50 hover:text-[#E8895A] transition-colors group"
+          >
+            Semua Proyek <ArrowUpRight size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+          </a>
         </motion.div>
 
-        {/* Button untuk show/hide semua project */}
-        {hasMoreProjects && (
-          <motion.div 
-            className="text-center mt-12"
-            variants={buttonVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <motion.button
-              onClick={toggleShowAll}
-              className="inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold text-white bg-blue-600 rounded-full hover:bg-blue-900 transition-all duration-300 hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+        {/* Embla Carousel */}
+        <div className="flex justify-center w-full">
+          <div className="relative w-full max-w-3xl px-8">
+            <div className="overflow-hidden rounded-[2rem]" ref={emblaRef}>
+              <div className="flex">
+                {projects.map((project, i) => (
+                  <div key={i} className="flex-[0_0_100%] min-w-0">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5 }}
+                      className="flex flex-col group px-2"
+                    >
+                      {/* Image */}
+                      <div className="relative aspect-[16/9] rounded-[2rem] overflow-hidden border border-[#2d2d2d]/10 group-hover:border-[#E8895A]/20 transition-all duration-500 shadow-lg">
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          className="object-cover transform group-hover:scale-105 transition-transform duration-1000"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                        <div className="absolute top-5 left-5">
+                          <span className="px-4 py-1.5 rounded-full bg-[#FFFBF1]/90 text-[10px] font-black uppercase tracking-[0.2em] text-[#E8895A]">
+                            {project.category}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Content */}
+                      <div className="py-8 px-4 flex flex-col space-y-3">
+                        <div className="flex flex-wrap gap-2">
+                          {project.tags.map((tag, j) => (
+                            <span key={j} className="text-[10px] font-black uppercase tracking-widest text-[#2d2d2d]/40">#{tag}</span>
+                          ))}
+                        </div>
+                        <h3 className="text-2xl md:text-4xl font-black text-[#2d2d2d] outfit leading-tight">
+                          {project.title}
+                        </h3>
+                        <p className="text-muted text-sm md:text-base leading-relaxed font-light">
+                          {project.description}
+                        </p>
+                        <div className="flex items-center gap-4 pt-4">
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-[#2d2d2d] text-[#FFFBF1] font-black text-[11px] uppercase tracking-widest hover:bg-[#E8895A] transition-all shadow-md"
+                          >
+                            Demo <ExternalLink size={14} />
+                          </a>
+                          <a
+                            href={project.repoUrl}
+                            target="_blank"
+                            className="w-[52px] h-[52px] flex items-center justify-center rounded-2xl border border-[#2d2d2d]/10 text-[#2d2d2d]/40 hover:text-[#E8895A] hover:border-[#E8895A]/20 transition-all"
+                          >
+                            <Github size={20} />
+                          </a>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Prev / Next buttons */}
+            <button
+              onClick={scrollPrev}
+              className="absolute left-[-20px] top-[30%] -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full bg-[#FFFBF1] border border-[#2d2d2d]/10 text-[#2d2d2d] hover:bg-[#E8895A] hover:text-white hover:border-transparent transition-all shadow-md z-10"
             >
-              {showAllProjects ? (
-                <>
-                  Tampilkan Lebih Sedikit
-                  <ChevronUp className="w-4 h-4" />
-                </>
-              ) : (
-                <>
-                  Lihat Semua Project 
-                  <ChevronDown className="w-4 h-4" />
-                </>
-              )}
-            </motion.button>
-            
-            {!showAllProjects && (
-              <p className="mt-3 text-sm text-gray-500">
-                Menampilkan {initialDisplayCount} dari {projectsData.length} project
-              </p>
-            )}
-          </motion.div>
-        )}
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={scrollNext}
+              className="absolute right-[-20px] top-[30%] -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full bg-[#FFFBF1] border border-[#2d2d2d]/10 text-[#2d2d2d] hover:bg-[#E8895A] hover:text-white hover:border-transparent transition-all shadow-md z-10"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
-}
+};
+
+export default ProjectsSection;

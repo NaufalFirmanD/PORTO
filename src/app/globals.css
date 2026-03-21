@@ -1,29 +1,120 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: #FFFBF1;
+  --color-foreground: #2d2d2d;
+  --color-primary: #FFF2D0;
+  --color-secondary: #FFB2B2;
+  --color-accent: #E8895A;
+  --color-muted: #9e8e7e;
+
+  --font-inter: var(--font-inter);
+  --font-outfit: var(--font-outfit);
 }
 
-/* Hapus atau comment bagian ini untuk disable dark mode */
-/*
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: #FFFBF1;
+  --foreground: #2d2d2d;
+  --primary: #FFF2D0;
+  --secondary: #FFB2B2;
+  --accent: #E8895A;
+  --muted: #9e8e7e;
 }
-*/
+
+
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 120px;
+}
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+.outfit {
+  font-family: var(--font-outfit), sans-serif;
+  line-height: 1.1;
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(255, 251, 241, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(45, 45, 45, 0.08);
+}
+
+.glass-dark {
+  background: rgba(255, 230, 190, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(45, 45, 45, 0.1);
+}
+
+/* Text Gradient */
+.text-gradient {
+  background: linear-gradient(135deg, #FFB2B2, #E8895A, #FFF2D0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section Spacing */
+section {
+  position: relative;
+  width: 100%;
+  padding: 8rem 0;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FFFBF1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FFB2B2;
+  border-radius: 10px;
+  border: 2px solid #FFFBF1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E8895A;
+}
+
+/* Animations */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.transition-smooth {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.text-muted {
+  color: var(--muted);
 }

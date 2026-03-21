@@ -1,150 +1,114 @@
-// Tambahkan baris ini untuk menandai sebagai Client Component
-"use client";
+'use client';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
+import { FaGithub, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
 
-import { Github, Mail, Linkedin, Heart } from 'lucide-react';
-import { FaWhatsapp } from 'react-icons/fa';
-
-
-
-export default function Footer() {
+const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
-  // Fungsi ini menggunakan 'document' yang hanya ada di browser,
-  // ini adalah alasan lain mengapa komponen ini harus menjadi "use client".
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          
-          {/* Brand Section */}
-          <div className="md:col-span-2">
-            <h3 className="text-2xl font-bold mb-4">
-            <span className="text-blue-400">N</span>aufal
-            </h3>
-            <p className="text-gray-300 mb-4 max-w-md">
-              Web Developer yang passionate dalam menciptakan pengalaman digital yang menarik dan fungsional.
+    <footer id="contact" className="relative w-full">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-100px' }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="bg-[#2d2d2d] overflow-hidden"
+      >
+        {/* Top Info Row */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 px-8 md:px-14 pt-10 md:pt-14">
+          {/* Left */}
+          <div className="space-y-1">
+            <p className="text-[#FFFBF1]/40 text-[11px] font-light leading-relaxed">
+              Frontend & Fullstack Developer<br />
+              React, Next.js, Tailwind
             </p>
-            <div className="flex space-x-4">
-              <a 
-                href="https://wa.me/+6289616644626"  // Gantilah dengan nomor WhatsApp yang benar
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
-                aria-label="WhatsApp"
-              >
-                <FaWhatsapp className="w-5 h-5 text-green-500" />
-              </a>
-              <a 
-                href="https://github.com/bonnnchannn" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
-                aria-label="GitHub Profile"
-              >
-                <Github className="w-5 h-5" />
-              </a>
-              <a 
-                href="https://www.linkedin.com/in/naufal-firman-dhani-66967b28b/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
-                aria-label="LinkedIn Profile"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a 
-                href="mailto:kamu@email.com"
-                className="p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
-                aria-label="Send Email"
-              >
-                <Mail className="w-5 h-5" />
-              </a>
-            </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              <li>
-                {/* Tombol dengan onClick ini membutuhkan "use client" */}
-                <button 
-                  onClick={() => scrollToSection('home')}
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  Home
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => scrollToSection('about')}
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  About
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => scrollToSection('projects')}
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  Projects
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => scrollToSection('contact')}
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  Contact
-                </button>
-              </li>
-            </ul>
+          {/* Center */}
+          <div className="hidden md:flex flex-col items-center gap-2 text-center">
+            <p className="text-[#FFFBF1]/40 text-[11px]">Tersedia untuk proyek baru</p>
+            <a
+              href="mailto:opang16012005@gmail.com"
+              className="text-[#FFFBF1] text-[11px] font-medium underline underline-offset-4 decoration-[#E8895A]/60 hover:decoration-[#E8895A] hover:text-[#E8895A] transition-colors"
+            >
+              Hubungi Saya
+            </a>
           </div>
 
-          {/* Contact Info */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Get In Touch</h4>
-            <ul className="space-y-2">
-              <li className="text-gray-300">
-                <span className="block text-sm">Email:</span>
-                <a 
-                  href="opang16012005@gmail.com" 
-                  className="hover:text-white transition-colors"
-                >
-                  opang16012005@gmail.com
-                </a>
-              </li>
-              <li className="text-gray-300">
-                <span className="block text-sm">Location:</span>
-                <span>Surabaya, Indonesia</span>
-              </li>
-            </ul>
+          {/* Right */}
+          <div className="text-right space-y-1">
+            <p className="text-[#FFFBF1]/40 text-[11px]">Surabaya, Indonesia</p>
+            <p className="text-[#FFFBF1]/40 text-[11px]">{currentYear}</p>
           </div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="border-t border-gray-800 mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm mb-4 md:mb-0">
-              © {currentYear} opanG. All rights reserved.
-            </p>
-            <p className="text-gray-400 text-sm flex items-center">
-              Made with <Heart className="w-4 h-4 mx-1 text-red-500" fill="currentColor" /> using Next.js & Tailwind CSS
+        {/* Big Name */}
+        <div className="px-6 md:px-10 py-6 md:py-8 overflow-hidden">
+          <button onClick={scrollToTop} className="w-full text-left group">
+            <h2 className="text-[13vw] md:text-[11vw] font-black outfit tracking-tighter text-[#FFFBF1] leading-[0.88] group-hover:text-[#E8895A] transition-colors duration-500">
+              Naufal Firman<br />Dhani.
+            </h2>
+          </button>
+        </div>
+
+        {/* Divider */}
+        <div className="mx-8 md:mx-14 h-px bg-[#FFFBF1]/8" />
+
+        {/* Bottom Row */}
+        <div className="grid grid-cols-2 md:grid-cols-3 items-end px-8 md:px-14 py-8 md:py-10 gap-6">
+          {/* Left — contact links */}
+          <div className="flex flex-col gap-2">
+            <a
+              href="mailto:opang16012005@gmail.com"
+              className="inline-flex items-center gap-1 text-[#FFFBF1]/50 text-[11px] hover:text-[#FFFBF1] transition-colors group/link w-fit"
+            >
+              opang16012005@gmail.com
+              <ArrowUpRight size={11} className="opacity-0 group-hover/link:opacity-100 transition-opacity" />
+            </a>
+            <a
+              href="tel:+6289616644626"
+              className="inline-flex items-center gap-1 text-[#FFFBF1]/50 text-[11px] hover:text-[#FFFBF1] transition-colors group/link w-fit"
+            >
+              +62 896 1664 4626
+              <ArrowUpRight size={11} className="opacity-0 group-hover/link:opacity-100 transition-opacity" />
+            </a>
+          </div>
+
+          {/* Center — copyright */}
+          <div className="hidden md:block text-center">
+            <p className="text-[#FFFBF1]/20 text-[10px] tracking-widest uppercase">
+              © {currentYear} Naufal Firman Dhani
             </p>
           </div>
+
+          {/* Right — socials */}
+          <div className="flex items-center justify-end gap-6">
+            {[
+              { icon: <FaGithub size={16} />, link: 'https://github.com/bonnnchannn', label: 'GitHub' },
+              { icon: <FaLinkedin size={16} />, link: 'https://www.linkedin.com/in/naufal-firman-dhani-66967b28b/', label: 'LinkedIn' },
+              { icon: <FaWhatsapp size={16} />, link: 'https://wa.me/+6289616644626', label: 'WhatsApp' },
+            ].map((s, i) => (
+              <a
+                key={i}
+                href={s.link}
+                target="_blank"
+                aria-label={s.label}
+                className="text-[#FFFBF1]/30 hover:text-[#FFFBF1] transition-colors duration-300"
+              >
+                {s.icon}
+              </a>
+            ))}
+          </div>
         </div>
-      </div>
+      </motion.div>
     </footer>
   );
-}
+};
+
+export default Footer;
