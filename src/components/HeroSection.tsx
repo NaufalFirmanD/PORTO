@@ -14,24 +14,24 @@ const HeroSection: React.FC = () => {
       <div className="relative w-full">
 
         {/* I'M A */}
-        <motion.h1
+        <motion.p
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="relative z-0 text-[13vw] md:text-[14vw] font-black outfit tracking-tighter leading-[0.85] text-[#2d2d2d] select-none"
         >
           I&apos;M A
-        </motion.h1>
+        </motion.p>
 
         {/* FULLSTACK — photo overlaps this line */}
-        <motion.h1
+        <motion.p
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
           className="relative z-0 text-[13vw] md:text-[14vw] font-black outfit tracking-tighter leading-[0.85] text-[#2d2d2d] select-none"
         >
           FULLSTACK
-        </motion.h1>
+        </motion.p>
 
         {/* DEVELOPER — in front of photo */}
         <motion.h1
