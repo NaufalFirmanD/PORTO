@@ -8,8 +8,8 @@ type ThemeContextValue = {
 
 export const ThemeContext = createContext<ThemeContextValue>({
   theme: "light",
-  setTheme: (value) => {
-    void value;
+  setTheme: (_value) => {
+    void _value;
   },
 });
 

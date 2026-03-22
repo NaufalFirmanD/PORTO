@@ -9,7 +9,7 @@ import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
 
 export default function Home() {
-  const { scrollYProgress } = useScroll();
+  const { scrollYProgress }: { scrollYProgress: import('framer-motion').MotionValue<number> } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
