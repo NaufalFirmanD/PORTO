@@ -66,12 +66,21 @@ export const metadata: Metadata = {
     description:
       "Portofolio pribadi saya sebagai web developer yang berpengalaman di React.js, Next.js, dan teknologi web modern.",
     siteName: "Naufal Firman Dhani",
+    images: [
+      {
+        url: "/profile5.png",
+        width: 1200,
+        height: 630,
+        alt: "Naufal Firman Dhani - Fullstack Developer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Portofolio | Naufal Firman Dhani",
     description:
       "Portofolio pribadi saya sebagai web developer yang berpengalaman di React.js, Next.js, dan teknologi web modern.",
+    images: ["/profile5.png"],
   },
 };
 
