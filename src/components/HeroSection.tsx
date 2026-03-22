@@ -10,6 +10,7 @@ const HeroSection: React.FC = () => {
       id="home"
       className="relative min-h-screen flex flex-col justify-center overflow-hidden px-6 md:px-10"
     >
+      <h1 className="sr-only">Naufal Firman Dhani - Fullstack Web Developer Portfolio</h1>
       {/* Text + Photo composition */}
       <div className="relative w-full">
 
@@ -34,14 +35,14 @@ const HeroSection: React.FC = () => {
         </motion.p>
 
         {/* DEVELOPER — in front of photo */}
-        <motion.h1
+        <motion.p
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
           className="relative z-20 text-[13vw] md:text-[14vw] font-black outfit tracking-tighter leading-[0.85] text-[#2d2d2d] select-none"
         >
           <span className="text-[#E8895A]">DEVELOPER.</span>
-        </motion.h1>
+        </motion.p>
 
         {/* Photo — spans full height of text block, centered-right */}
         <motion.div
